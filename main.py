@@ -10,11 +10,17 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.screenmanager import ScreenManager, Screen, SlideTransition
 from kivy.uix.image import Image
+from kivy.core.audio import SoundLoader
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.behaviors import ButtonBehavior
+import webbrowser
 from kivy.core.window import Window
 import os
 
 from info import *  # Se importan los diccionarios
+
+class ImageButton(ButtonBehavior, Image):
+    pass
 
 # Pantalla del menú principal
 class MainScreen(Screen):
@@ -24,6 +30,9 @@ class MainScreen(Screen):
         # Cambiar el color de fondo de la ventana a un azul suave
         Window.clearcolor = (0.9, 0.95, 1, 1)  # Azul suave
         
+        # Cargar el sonido
+        self.sound = SoundLoader.load('recursos/soundAjedrez.mp3')
+
         # Layout principal
         layout = BoxLayout(orientation='vertical', padding=20, spacing=20)
         
@@ -59,6 +68,7 @@ class MainScreen(Screen):
             pos_hint={'center_x': 0.5, 'center_y': 0.5}
         )
         button_enfermedades.bind(on_release=self.ir_enfermedades)
+        button_enfermedades.bind(on_release=self.reproducir_sonido)
         layout.add_widget(button_enfermedades)
         
         # Botón "Preguntas Frecuentes"
@@ -73,7 +83,23 @@ class MainScreen(Screen):
             pos_hint={'center_x': 0.5, 'center_y': 0.5}
         )
         button_preguntas.bind(on_release=self.ir_preguntas)
+        button_preguntas.bind(on_release=self.reproducir_sonido)
         layout.add_widget(button_preguntas)
+        
+        # Botón "Patrocinadores"
+        button_patrocinadores = Button(
+            text="Patrocinadores",
+            font_name="Roboto",
+            background_color=(1, 0.5, 0.2, 1),  # Naranja
+            color=(1, 1, 1, 1),  # Texto en blanco
+            font_size=24,
+            size_hint=(0.3, 0.15),
+            bold=True,
+            pos_hint={'center_x': 0.5, 'center_y': 0.5}
+        )
+        button_patrocinadores.bind(on_release=self.ir_patrocinadores)
+        button_patrocinadores.bind(on_release=self.reproducir_sonido)
+        layout.add_widget(button_patrocinadores)
         
         # Botón "Salir del Programa"
         button_salir = Button(
@@ -87,6 +113,7 @@ class MainScreen(Screen):
             pos_hint={'center_x': 0.5, 'center_y': 0.5}
         )
         button_salir.bind(on_release=self.salir_programa)
+        button_salir.bind(on_release=self.reproducir_sonido)
         layout.add_widget(button_salir)
         
         # Footer (opcional)
@@ -100,12 +127,19 @@ class MainScreen(Screen):
         
         # Agregar el layout al screen
         self.add_widget(layout)
+
+    def reproducir_sonido(self, instance):
+        if self.sound:
+            self.sound.play()
     
     def ir_enfermedades(self, instance):
         self.manager.current = 'seleccion_enfermedad'
     
     def ir_preguntas(self, instance):
         self.manager.current = 'seleccion_preguntas_frecuentes'
+    
+    def ir_patrocinadores(self, instance):
+        self.manager.current = 'patrocinadores'
     
     def salir_programa(self, instance):
         App.get_running_app().stop()
@@ -114,6 +148,10 @@ class MainScreen(Screen):
 class SeleccionEnfermedadScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        # Cargar el sonido
+        self.sound = SoundLoader.load('recursos/soundAjedrez.mp3')
+
         layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
         
         # Label instructivo
@@ -135,7 +173,8 @@ class SeleccionEnfermedadScreen(Screen):
             size=(400, 50),
             bold=True,
             pos_hint={'center_x': .5, 'center_y': .5},
-            background_color=[0.2, 0.6, 0.8, 1])
+            background_color=[0.2, 0.6, 0.8, 1]
+        )
         self.spinner_enfermedades.bind(text=self.on_enfermedad_select)
         layout.add_widget(self.spinner_enfermedades)
         
@@ -156,8 +195,10 @@ class SeleccionEnfermedadScreen(Screen):
             size_hint=(None, None),
             size=(200, 50),
             pos_hint={'center_x': .5},
-            background_color=[0.2, 0.8, 0.2, 1])  # Verde claro
+            background_color=[0.2, 0.8, 0.2, 1]  # Verde claro
+        )
         button_continuar.bind(on_release=self.mostrar_informacion_enfermedad)
+        button_continuar.bind(on_release=self.reproducir_sonido)  # Agregar sonido al interactuar con el botón
         layout.add_widget(button_continuar)
         
         # Botón para regresar al Menú Principal
@@ -166,21 +207,29 @@ class SeleccionEnfermedadScreen(Screen):
             size_hint=(None, None),
             size=(200, 50),
             pos_hint={'center_x': .5},
-            background_color=[0.8, 0.2, 0.2, 1])  # Rojo claro
+            background_color=[0.8, 0.2, 0.2, 1]  # Rojo claro
+        )
         button_back.bind(on_release=self.volver_menu)
+        button_back.bind(on_release=self.reproducir_sonido)  # Agregar sonido al interactuar con el botón
         layout.add_widget(button_back)
         
         self.add_widget(layout)
         self.selected_enfermedad = None
+
+    def reproducir_sonido(self, instance):
+        if self.sound:
+            self.sound.play()
 
     def on_leave(self):
         # Resetea el Spinner antes de salir de la pantalla
         self.reset_spinner()
 
     def on_enfermedad_select(self, spinner, text):
+        self.reproducir_sonido(spinner)  # Reproduce el sonido al seleccionar una opción en el Spinner
         self.selected_enfermedad = text
 
     def mostrar_informacion_enfermedad(self, instance):
+        self.reproducir_sonido(instance)  # Reproduce el sonido al continuar
         if self.selected_enfermedad:
             self.manager.transition = SlideTransition(direction="left")
             self.manager.get_screen('informacion_enfermedad').mostrar_informacion(self.selected_enfermedad)
@@ -189,10 +238,12 @@ class SeleccionEnfermedadScreen(Screen):
             self.popup_error("Por favor seleccione una enfermedad antes de continuar.")
 
     def popup_error(self, mensaje):
+        self.reproducir_sonido(None)  # Reproduce el sonido al mostrar el popup
         popup = Popup(title='Error', content=Label(text=mensaje), size_hint=(None, None), size=(400, 200))
         popup.open()
 
     def volver_menu(self, instance):
+        self.reproducir_sonido(instance)  # Reproduce el sonido al regresar al menú
         self.manager.transition = SlideTransition(direction="right")
         self.manager.current = 'menu'
 
@@ -206,8 +257,11 @@ class InformacionEnfermedadScreen(Screen):
         super().__init__(**kwargs)
         self.selected_problema = None  # Variable para almacenar la enfermedad seleccionada
 
+        # Cargar el sonido
+        self.sound = SoundLoader.load('recursos/soundAjedrez.mp3')
+
         # Layout principal
-        layout = BoxLayout(orientation='vertical', padding=20, spacing=20)
+        layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
 
         # Label para el nombre de la enfermedad seleccionada
         self.label_enfermedad = Label(
@@ -230,6 +284,7 @@ class InformacionEnfermedadScreen(Screen):
             background_color=[0.2, 0.6, 0.8, 1]
         )
         self.spinner_edad.bind(text=self.on_edad_select)
+        self.spinner_edad.bind(on_press=self.reproducir_sonido)
         layout.add_widget(self.spinner_edad)
 
         # GridLayout para la información de la enfermedad
@@ -273,13 +328,14 @@ class InformacionEnfermedadScreen(Screen):
         scroll_view.add_widget(info_layout)
         layout.add_widget(scroll_view)
 
-        # Imagen relacionada con la enfermedad
+        # Imagen relacionada con la enfermedad, inicialmente oculta
         self.image = Image(
-            source='',  # No se muestra ninguna imagen inicialmente
+            source='',
             size_hint=(0.3, 0.4),
             allow_stretch=True,
             keep_ratio=True,
-            pos_hint={'center_x': .5}
+            pos_hint={'center_x': .5, 'top': 1},
+            opacity=0  # Inicialmente oculta
         )
         layout.add_widget(self.image)
 
@@ -292,11 +348,17 @@ class InformacionEnfermedadScreen(Screen):
             background_color=[0.8, 0.2, 0.2, 1]
         )
         button_back.bind(on_release=self.volver_seleccion_enfermedad)
+        button_back.bind(on_release=self.reproducir_sonido)
         layout.add_widget(button_back)
 
         self.add_widget(layout)
 
+    def reproducir_sonido(self, instance):
+        if self.sound:
+            self.sound.play()
+
     def on_edad_select(self, spinner, text):
+        self.reproducir_sonido(spinner)  # Reproduce el sonido al seleccionar
         if self.selected_problema:
             problema = problemas_digestivos[self.selected_problema]
             medicacion = problema['medicacion']['dosis'].get(text, "No especificado")
@@ -316,12 +378,13 @@ class InformacionEnfermedadScreen(Screen):
             self.label_alimentacion.text_size = (self.width - 40, None)
             self.label_recomendacion.text_size = (self.width - 40, None)
 
-            # Mostrar la imagen relacionada con la enfermedad
-            image_path = os.path.join('recursos', f"{self.selected_problema}.jpg")
-            if os.path.exists(image_path):
-                self.image.source = image_path
+            # Cambiar la imagen según la selección de edad
+            if text == 'Bebé/Niño':
+                self.image.source = 'recursos/imagena1.jpg'
             else:
-                self.image.source = 'recursos/default.jpg'  # Imagen por defecto si no se encuentra la específica
+                self.image.source = 'recursos/imagenb1.jpg'
+            
+            self.image.opacity = 1  # Mostrar la imagen cuando se seleccione el rango de edad
 
         else:
             self.label_medicacion.text = "Selecciona un grupo de edad."
@@ -333,7 +396,8 @@ class InformacionEnfermedadScreen(Screen):
         self.label_medicacion.text = ""
         self.label_alimentacion.text = ""
         self.label_recomendacion.text = ""
-        self.image.source = ''  # Limpiar la imagen
+        self.image.source = ""  # Restablecer la imagen
+        self.image.opacity = 0  # Ocultar la imagen al restablecer
 
     def mostrar_informacion(self, enfermedad):
         """ Método para configurar la pantalla con la enfermedad seleccionada. """
@@ -350,7 +414,8 @@ class InformacionEnfermedadScreen(Screen):
         self.label_medicacion.text = ""
         self.label_alimentacion.text = ""
         self.label_recomendacion.text = ""
-        self.image.source = ''  # Limpiar la imagen
+        self.image.source = ""  # Restablecer la imagen
+        self.image.opacity = 0  # Ocultar la imagen
 
 # Pantalla de selección de sección de preguntas frecuentes
 class SeleccionPreguntasFrecuentesScreen(Screen):
@@ -359,6 +424,9 @@ class SeleccionPreguntasFrecuentesScreen(Screen):
 
         # Configuración del color de fondo
         Window.clearcolor = (0.9, 0.95, 1, 1)  # Azul suave
+
+        # Cargar el sonido
+        self.sound = SoundLoader.load('recursos/soundAjedrez.mp3')
 
         # Layout principal
         layout = BoxLayout(orientation='vertical', padding=[20, 10, 20, 10], spacing=20)
@@ -383,10 +451,11 @@ class SeleccionPreguntasFrecuentesScreen(Screen):
             pos_hint={'center_x': .5},
             background_color=[0.2, 0.6, 0.8, 1]
         )
+        self.spinner_secciones.bind(text=self.on_seccion_select)
         layout.add_widget(self.spinner_secciones)
 
         # Espacio para la imagen de comidas balanceadas
-        image_path = os.path.join('recursos\preguntas_fre.jpg')  # Ajusta la ruta de la imagen
+        image_path = os.path.join('recursos/preguntas_fre.jpg')  # Ajusta la ruta de la imagen
         image = Image(
             source=image_path,
             size_hint=(1, 0.5),
@@ -404,6 +473,7 @@ class SeleccionPreguntasFrecuentesScreen(Screen):
             background_color=[0.2, 0.8, 0.2, 1]  # Verde claro
         )
         button_continuar.bind(on_release=self.continuar_seccion)
+        button_continuar.bind(on_release=self.reproducir_sonido)
         layout.add_widget(button_continuar)
 
         # Botón para regresar al Menú Principal (abajo)
@@ -415,13 +485,23 @@ class SeleccionPreguntasFrecuentesScreen(Screen):
             background_color=[0.8, 0.2, 0.2, 1]  # Rojo claro
         )
         button_back.bind(on_release=self.volver_menu)
+        button_back.bind(on_release=self.reproducir_sonido)
         layout.add_widget(button_back)
 
         self.add_widget(layout)
 
+    def reproducir_sonido(self, instance):
+        """Reproduce un sonido."""
+        if self.sound:
+            self.sound.play()
+
     def on_leave(self):
         # Resetea el Spinner antes de salir de la pantalla
         self.reset_spinner()
+
+    def on_seccion_select(self, spinner, text):
+        """Método llamado cuando se selecciona una sección en el spinner."""
+        self.reproducir_sonido(spinner)
 
     def continuar_seccion(self, instance):
         if self.spinner_secciones.text != 'Selecciona una sección':
@@ -441,11 +521,11 @@ class SeleccionPreguntasFrecuentesScreen(Screen):
         self.manager.current = 'menu'
 
     def reset_spinner(self):
-        """ Resetea la pantalla al regresar al Menú Principal. """
+        """Resetea la pantalla al regresar al Menú Principal."""
         self.spinner_secciones.text = 'Selecciona una sección'
 
     def popup_error(self, mensaje):
-        """ Muestra un popup de error si no se selecciona una sección. """
+        """Muestra un popup de error si no se selecciona una sección."""
         popup = Popup(title='Error', content=Label(text=mensaje), size_hint=(None, None), size=(400, 200))
         popup.open()
 
@@ -453,6 +533,9 @@ class SeleccionPreguntasFrecuentesScreen(Screen):
 class PresentacionPreguntasScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+
+        # Cargar el sonido
+        self.sound = SoundLoader.load('recursos/soundAjedrez.mp3')
 
         # Layout principal
         layout = BoxLayout(orientation='vertical', padding=20, spacing=10)
@@ -486,9 +569,15 @@ class PresentacionPreguntasScreen(Screen):
             background_color=[0.8, 0.2, 0.2, 1]  # Rojo claro
         )
         button_back.bind(on_release=self.volver_seleccion)
+        button_back.bind(on_release=self.reproducir_sonido)  # Añadir sonido al botón
         layout.add_widget(button_back)
 
         self.add_widget(layout)
+
+    def reproducir_sonido(self, instance):
+        """Reproduce el sonido cuando se presiona un botón o se selecciona algo en el spinner."""
+        if self.sound:
+            self.sound.play()
 
     def mostrar_preguntas(self, seccion):
         """ Muestra las preguntas y respuestas según la sección seleccionada. """
@@ -498,7 +587,11 @@ class PresentacionPreguntasScreen(Screen):
         fila_layout = BoxLayout(orientation='horizontal', spacing=20, size_hint_y=None, height=0)
 
         for idx, pregunta in enumerate(preguntas):
-            stack_layout = self.crear_stack_layout(pregunta['pregunta'], pregunta['respuesta'], "path_to_image")
+            # Obtener el nombre de la imagen desde el diccionario y construir la ruta relativa
+            nombre_imagen = pregunta.get('imagen', 'default.jpg')  # Usa 'default.jpg' si no se encuentra la clave 'imagen'
+            imagen_source = f'recursos/{nombre_imagen}.jpg'
+
+            stack_layout = self.crear_stack_layout(pregunta['pregunta'], pregunta['respuesta'], imagen_source)
 
             fila_layout.add_widget(stack_layout)
             fila_layout.height = max(fila_layout.height, stack_layout.height)
@@ -592,6 +685,67 @@ class PresentacionPreguntasScreen(Screen):
         self.label_seccion.text = 'Preguntas Frecuentes'
         self.stack_layout.clear_widgets()
 
+# Pantalla de presentación del patrocinador
+class PatrocinadoresScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.sound = SoundLoader.load('recursos/soundAjedrez.mp3')
+        self.build_ui()
+
+    def build_ui(self):
+        # Layout principal
+        layout = BoxLayout(orientation='vertical', padding=20, spacing=20)
+
+        # Label para el texto de presentación
+        label_presentacion = Label(
+            text='Presentando a nuestros patrocinadores',
+            font_size=24,
+            color=(0, 0.5, 0, 1),  # Verde oscuro
+            size_hint=(1, 0.2),
+            halign='center',
+            valign='middle'
+        )
+        layout.add_widget(label_presentacion)
+
+        # Imagen que redirige a una página web al hacer clic
+        image = ImageButton(
+            source='recursos/ollas.png',  # Cambia esto a la ruta de la imagen que desees usar
+            size_hint=(0.5, 0.5),
+            allow_stretch=True,
+            keep_ratio=True,
+            pos_hint={'center_x': 0.5}
+        )
+        image.bind(on_release=self.open_webpage)
+        image.bind(on_release=self.reproducir_sonido)  # Añadir sonido al hacer clic en la imagen
+        layout.add_widget(image)
+
+        # Botón para regresar al menú principal
+        button_back = Button(
+            text='Volver al Menú Principal',
+            size_hint=(None, None),
+            size=(200, 50),
+            pos_hint={'center_x': .5},
+            background_color=[0.8, 0.2, 0.2, 1]  # Rojo claro
+        )
+        button_back.bind(on_release=self.volver_menu)
+        button_back.bind(on_release=self.reproducir_sonido)  # Añadir sonido al hacer clic en el botón
+        layout.add_widget(button_back)
+
+        self.add_widget(layout)
+
+    def open_webpage(self, instance):
+        # Abrir una página web al hacer clic en la imagen
+        webbrowser.open('https://www.royalprestige.com/ec')  # Cambia esto a la URL que desees
+
+    def volver_menu(self, instance):
+        self.manager.transition = SlideTransition(direction="right")
+        self.manager.current = 'menu'
+
+    def reproducir_sonido(self, instance):
+        """Reproduce el sonido cuando se presiona un botón o se selecciona algo."""
+        if self.sound:
+            self.sound.play()
+
 # Clase principal de la aplicación
 class MainApp(App):
     def build(self):
@@ -601,6 +755,7 @@ class MainApp(App):
         sm.add_widget(InformacionEnfermedadScreen(name='informacion_enfermedad'))
         sm.add_widget(SeleccionPreguntasFrecuentesScreen(name='seleccion_preguntas_frecuentes'))
         sm.add_widget(PresentacionPreguntasScreen(name='presentacion_preguntas'))
+        sm.add_widget(PatrocinadoresScreen(name='patrocinadores'))
         return sm
 
 if __name__ == '__main__':

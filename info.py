@@ -118,27 +118,33 @@ preguntas_frecuentes = {
         "preguntas": [
             {
                 "pregunta": "¿Qué alimentos se pueden consumir si tengo diarrea?",
-                "respuesta": "Se puede consumir alimentos como frutas y vegetales cocinados preferiblemente, carnes blancas como pescado, pollo, pavo, cereales como la quinua, arroz, verde, maduro, yuca, etc."
+                "respuesta": "Se puede consumir alimentos como frutas y vegetales cocinados preferiblemente, carnes blancas como pescado, pollo, pavo, cereales como la quinua, arroz, verde, maduro, yuca, etc.",
+                "imagen": "imagen1"
             },
             {
                 "pregunta": "¿Qué alimentos no se pueden consumir si tengo cólicos?",
-                "respuesta": "Evitar alimentos crucíferos como brócoli, coliflor, coles (repollo y col morada), coles de bruselas, estimulantes gástricos: café, bebidas gaseosas, picantes, pimienta, ajo."
+                "respuesta": "Evitar alimentos crucíferos como brócoli, coliflor, coles (repollo y col morada), coles de bruselas, estimulantes gástricos: café, bebidas gaseosas, picantes, pimienta, ajo.",
+                "imagen": "imagen2"
             },
             {
                 "pregunta": "¿Qué alimentos debo consumir si tengo vómito?",
-                "respuesta": "Es preferible iniciar con dieta tipo líquida para progresar viendo tolerancia, por ejemplo: tés de manzanilla, infusión de hierba luisa, etc."
+                "respuesta": "Es preferible iniciar con dieta tipo líquida para progresar viendo tolerancia, por ejemplo: tés de manzanilla, infusión de hierba luisa, etc.",
+                "imagen": "imagen3"
             },
             {
                 "pregunta": "¿Qué alimentos se pueden consumir si tengo estreñimiento?",
-                "respuesta": "Es preferible que la dieta sea alta en fibras soluble e insolubles como cereales integrales (avena, salvado de trigo, linaza, arroz integral), semillas (chía, nueces, pistachos), granos secos (lentejas, frijoles, garbanzos), frutas y vegetales como papaya, pitahaya, kiwi, granadilla, frutillas, y vegetales crudos con cáscara como tomate, pimientos, pepino, espinaca, etc."
+                "respuesta": "Es preferible que la dieta sea alta en fibras soluble e insolubles como cereales integrales (avena, salvado de trigo, linaza, arroz integral), semillas (chía, nueces, pistachos), granos secos (lentejas, frijoles, garbanzos), frutas y vegetales como papaya, pitahaya, kiwi, granadilla, frutillas, y vegetales crudos con cáscara como tomate, pimientos, pepino, espinaca, etc.",
+                "imagen": "imagen4"
             },
             {
                 "pregunta": "¿Qué alimentos se pueden evitar consumir si tengo cálculos renales?",
-                "respuesta": "Evitar consumir lácteos y derivados, hojas verdes, bebidas gaseosas, alcohol y energizantes."
+                "respuesta": "Evitar consumir lácteos y derivados, hojas verdes, bebidas gaseosas, alcohol y energizantes.",
+                "imagen": "imagen5"
             },
             {
                 "pregunta": "¿Qué alimentos se pueden consumir si tengo chuchaqui?",
-                "respuesta": "Para esta situación es recomendable hidratarse bien, con agua y sueros orales."
+                "respuesta": "Para esta situación es recomendable hidratarse bien, con agua y sueros orales.",
+                "imagen": "imagen6"
             }
         ]
     },
@@ -146,15 +152,18 @@ preguntas_frecuentes = {
         "preguntas": [
             {
                 "pregunta": "¿Qué alimentos se pueden consumir si quiero bajar de peso?",
-                "respuesta": "Es recomendable consumir una dieta mediterránea que se basa en mayor consumo de ácidos grasos O3 (aguacate, aceite de oliva extra virgen, aceitunas, pescado), frutas y vegetales, cereales integrales, granos secos, y carnes magras. Evitar alimentos ultraprocesados como embutidos, carnes ahumadas, enlatados, jugos artificiales, bebidas gaseosas."
+                "respuesta": "Es recomendable consumir una dieta mediterránea que se basa en mayor consumo de ácidos grasos O3 (aguacate, aceite de oliva extra virgen, aceitunas, pescado), frutas y vegetales, cereales integrales, granos secos, y carnes magras. Evitar alimentos ultraprocesados como embutidos, carnes ahumadas, enlatados, jugos artificiales, bebidas gaseosas.",
+                "imagen": "imagen7"
             },
             {
                 "pregunta": "¿Qué alimentos se pueden consumir si quiero bajar la glucosa?",
-                "respuesta": "Consumir vegetales en abundancia, cereales integrales, carnes magras, frutos secos, frutas que no estén muy maduras. Evitar bebidas gaseosas, jugos naturales y artificiales, dulces, chocolates, tortas, harinas refinadas."
+                "respuesta": "Consumir vegetales en abundancia, cereales integrales, carnes magras, frutos secos, frutas que no estén muy maduras. Evitar bebidas gaseosas, jugos naturales y artificiales, dulces, chocolates, tortas, harinas refinadas.",
+                "imagen": "imagen8"
             },
             {
                 "pregunta": "¿Qué alimentos se pueden consumir si quiero ganar masa muscular?",
-                "respuesta": "Para ganar masa muscular, consumir mayor cantidad de proteínas (huevos, pollo, pavo, pescado, carnes magras), carbohidratos (cereales integrales, tubérculos como yuca y papa, verde, maduro, etc.)."
+                "respuesta": "Para ganar masa muscular, consumir mayor cantidad de proteínas (huevos, pollo, pavo, pescado, carnes magras), carbohidratos (cereales integrales, tubérculos como yuca y papa, verde, maduro, etc.).",
+                "imagen": "imagen9"
             }
         ]
     },
@@ -162,7 +171,8 @@ preguntas_frecuentes = {
         "preguntas": [
             {
                 "pregunta": "¿Qué alimentos puede consumir un adulto mayor?",
-                "respuesta": "El adulto mayor puede consumir una dieta normal, pero depende si hay alguna patología o si tiene sus piezas dentales completas. En ese caso, se recomienda una dieta blanda en consistencia."
+                "respuesta": "El adulto mayor puede consumir una dieta normal, pero depende si hay alguna patología o si tiene sus piezas dentales completas. En ese caso, se recomienda una dieta blanda en consistencia.",
+                "imagen": "imagen10"
             }
         ]
     },
@@ -170,15 +180,18 @@ preguntas_frecuentes = {
         "preguntas": [
             {
                 "pregunta": "¿Qué alimentos se pueden consumir en un desayuno saludable?",
-                "respuesta": "Deben incluirse los tres grupos de macronutrientes: carbohidratos, proteínas y grasas. Ejemplos: frutas picadas con avena en hojuelas, chía, y yogur griego natural; huevos revueltos o duros; ½ aguacate; 1 sándwich con lechuga, tomate, huevo y queso; o 1 bolón de verde con queso."
+                "respuesta": "Deben incluirse los tres grupos de macronutrientes: carbohidratos, proteínas y grasas. Ejemplos: frutas picadas con avena en hojuelas, chía, y yogur griego natural; huevos revueltos o duros; ½ aguacate; 1 sándwich con lechuga, tomate, huevo y queso; o 1 bolón de verde con queso.",
+                "imagen": "imagen11"
             },
             {
                 "pregunta": "¿Qué alimentos se pueden consumir en un almuerzo saludable?",
-                "respuesta": "El plato debe incluir mayor consumo de vegetales en ensaladas frescas, carbohidratos complejos, y proteínas magras. Ejemplo: ensalada fresca ocupando la mitad del plato, pavo al horno, papas chauchas con aderezo de queso crema ricota."
+                "respuesta": "El plato debe incluir mayor consumo de vegetales en ensaladas frescas, carbohidratos complejos, y proteínas magras. Ejemplo: ensalada fresca ocupando la mitad del plato, pavo al horno, papas chauchas con aderezo de queso crema ricota.",
+                "imagen": "imagen12"
             },
             {
                 "pregunta": "¿Qué alimentos se pueden consumir en una merienda saludable?",
-                "respuesta": "Similar al almuerzo, pero en menor cantidad. Mayor consumo de vegetales en ensaladas frescas, carbohidratos complejos, y proteínas magras. Ejemplo: ensalada fresca en la mitad del plato, pavo al horno, papas chauchas con aderezo de queso crema ricota."
+                "respuesta": "Similar al almuerzo, pero en menor cantidad. Mayor consumo de vegetales en ensaladas frescas, carbohidratos complejos, y proteínas magras. Ejemplo: ensalada fresca en la mitad del plato, pavo al horno, papas chauchas con aderezo de queso crema ricota.",
+                "imagen": "imagen13"
             }
         ]
     },
@@ -186,7 +199,8 @@ preguntas_frecuentes = {
         "preguntas": [
             {
                 "pregunta": "¿Qué alimentos no son recomendables para el consumo y por qué?",
-                "respuesta": "Los alimentos ultraprocesados no son recomendables porque están elaborados con grasas saturadas o trans, azúcares añadidos, exceso de sodio, y químicos para preservarlos por más tiempo. Ejemplos: bebidas energizantes, colas."
+                "respuesta": "Los alimentos ultraprocesados no son recomendables porque están elaborados con grasas saturadas o trans, azúcares añadidos, exceso de sodio, y químicos para preservarlos por más tiempo. Ejemplos: bebidas energizantes, colas.",
+                "imagen": "imagen14"
             }
         ]
     }
